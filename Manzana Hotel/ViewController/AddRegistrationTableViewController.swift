@@ -83,7 +83,6 @@ class AddRegistrationTableViewController: UITableViewController {
     }
     
     func updateRoomType() {
-        print(roomType ?? "Room Type nil")
         if let roomType = roomType {
             roomTypeLabel.text = roomType.name
         } else {
@@ -105,7 +104,6 @@ class AddRegistrationTableViewController: UITableViewController {
         let numberOfAdults = Int(numberOfAdultsStepper.value)
         let numbersOfChtldren = Int(numberOfChildrenStepper.value)
         let roomType = roomType
-        
         let wifi = wifiSwich.isOn
         
         let registration = Registration(
