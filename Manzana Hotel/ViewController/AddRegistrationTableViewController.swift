@@ -117,6 +117,8 @@ class AddRegistrationTableViewController: UITableViewController {
             roomType: roomType,
             wifi: wifi
         )
+        print(registration.chekInDate)
+        print(registration.chekOutDate)
         dump(registration)
     }
     
