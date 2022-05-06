@@ -32,6 +32,7 @@
 		2D602EC32821C3A300A05D5B /* AddRegistrationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRegistrationTableViewController.swift; sourceTree = "<group>"; };
 		2D602EC52824EDDC00A05D5B /* SelectRoomTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoomTypeTableViewController.swift; sourceTree = "<group>"; };
 		2D602EC82824F54C00A05D5B /* SelectRoomTypeTableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoomTypeTableViewProtocol.swift; sourceTree = "<group>"; };
+		2D7ED77628258EF000899C4F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +49,7 @@
 		2D602E982821BC7700A05D5B = {
 			isa = PBXGroup;
 			children = (
+				2D7ED77628258EF000899C4F /* README.md */,
 				2D602EA32821BC7700A05D5B /* Manzana Hotel */,
 				2D602EA22821BC7700A05D5B /* Products */,
 			);
