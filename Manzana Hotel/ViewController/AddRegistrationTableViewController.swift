@@ -12,17 +12,22 @@ class AddRegistrationTableViewController: UITableViewController {
     @IBOutlet var firstNameTextField: UITextField!
     @IBOutlet var lastNameTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
-    @IBOutlet weak var chekInDateLabel: UILabel!
-    @IBOutlet weak var chekInDatePicker: UIDatePicker!
-    @IBOutlet weak var chekOutDateLabel: UILabel!
-    @IBOutlet weak var chekOutDatePicker: UIDatePicker!
+    @IBOutlet var chekInDateLabel: UILabel!
+    @IBOutlet var chekInDatePicker: UIDatePicker!
+    @IBOutlet var chekOutDateLabel: UILabel!
+    @IBOutlet var chekOutDatePicker: UIDatePicker!
+    @IBOutlet var numberOfAdultsStepper: UIStepper!
+    @IBOutlet var numberOfAdultsLabel: UILabel!
+    @IBOutlet var numberOfChildrenStepper: UIStepper!
+    @IBOutlet var numberOfChildrenLabel: UILabel!
+    @IBOutlet var wifiSwich: UISwitch!
     
     // MARK: - Props
     let chekInDateLabelIndexPath = IndexPath(row: 0, section: 1)
     let chekInDatePicherIndexPath = IndexPath (row: 1, section: 1)
     let chekOutDateLabelIndexPath = IndexPath(row: 2, section: 1)
     let chekOutDatePicherIndexPath = IndexPath (row: 3, section: 1)
-
+    
     var isChekInDatePickerShown: Bool = false {
         didSet {
             chekInDatePicker.isHidden = !isChekInDatePickerShown
@@ -56,6 +61,14 @@ class AddRegistrationTableViewController: UITableViewController {
         chekOutDateLabel.text = dateFormatter.string(from: chekOutDatePicker.date)
     }
     
+    func updateNumberOfGuests() {
+        let numberOfAdults = Int(numberOfAdultsStepper.value)
+        let numberOfChildren = Int(numberOfChildrenStepper.value)
+        numberOfAdultsLabel.text = "\(numberOfAdults)"
+        numberOfChildrenLabel.text = "\(numberOfChildren)"
+        
+    }
+    
     
     // MARK: - Actions
     @IBAction func datePickerValueChanged (_ sender: UIDatePicker) {
@@ -68,6 +81,10 @@ class AddRegistrationTableViewController: UITableViewController {
         let email = emailTextField.text ?? ""
         let chekInDate = chekInDatePicker.date
         let chekOutDate = chekOutDatePicker.date
+        let numberOfAdults = Int(numberOfAdultsStepper.value)
+        let numbersOfChtldren = Int(numberOfChildrenStepper.value)
+        
+        let wifi = wifiSwich.isOn
         
         let registration = Registration(
             firstName: firstName,
@@ -75,17 +92,21 @@ class AddRegistrationTableViewController: UITableViewController {
             email: email,
             chekInDate: chekInDate,
             chekOutDate: chekOutDate,
-            numberOfAdults: 0,
-            numbersOfChtldren: 0,
+            numberOfAdults: numberOfAdults,
+            numbersOfChtldren: numbersOfChtldren,
             roomType: RoomType(
                 id: 0,
                 name: "",
                 shortName: "",
                 price: 0
             ),
-            wifi: false
+            wifi: wifi
         )
         dump(registration)
+    }
+    
+    @IBAction func stepperValueChanged (_ sender: UIStepper) {
+        updateNumberOfGuests()
     }
 }
 
