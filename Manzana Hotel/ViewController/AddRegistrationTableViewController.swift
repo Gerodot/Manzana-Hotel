@@ -21,6 +21,7 @@ class AddRegistrationTableViewController: UITableViewController {
     @IBOutlet var numberOfChildrenStepper: UIStepper!
     @IBOutlet var numberOfChildrenLabel: UILabel!
     @IBOutlet var wifiSwich: UISwitch!
+    @IBOutlet var roomTypeLabel: UILabel!
     
     // MARK: - Props
     let chekInDateLabelIndexPath = IndexPath(row: 0, section: 1)
@@ -39,6 +40,8 @@ class AddRegistrationTableViewController: UITableViewController {
         }
     }
     
+    var roomType: RoomType?
+    
     // MARK: - UIViewController Methds
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +50,19 @@ class AddRegistrationTableViewController: UITableViewController {
         chekInDatePicker.date = midnightToday
         
         updateDateView()
+        updateNumberOfGuests()
+        updateRoomType()
     }
     
-    // MARK: - Methood
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "SelectedRoomType" else { return }
+        let destonation = segue.destination as! SelectRoomTypeTableViewController
+        destonation.delegate = self
+        destonation.roomType = roomType
+    }
+    
+    // MARK: - UI Methoods
     func updateDateView() {
         chekOutDatePicker.minimumDate = chekInDatePicker.date.addingTimeInterval(60 * 60 * 24)
         
@@ -69,6 +82,14 @@ class AddRegistrationTableViewController: UITableViewController {
         
     }
     
+    func updateRoomType() {
+        print(roomType ?? "Room Type nil")
+        if let roomType = roomType {
+            roomTypeLabel.text = roomType.name
+        } else {
+            roomTypeLabel.text = "Not Set"
+        }
+    }
     
     // MARK: - Actions
     @IBAction func datePickerValueChanged (_ sender: UIDatePicker) {
@@ -83,6 +104,7 @@ class AddRegistrationTableViewController: UITableViewController {
         let chekOutDate = chekOutDatePicker.date
         let numberOfAdults = Int(numberOfAdultsStepper.value)
         let numbersOfChtldren = Int(numberOfChildrenStepper.value)
+        let roomType = roomType
         
         let wifi = wifiSwich.isOn
         
@@ -94,12 +116,7 @@ class AddRegistrationTableViewController: UITableViewController {
             chekOutDate: chekOutDate,
             numberOfAdults: numberOfAdults,
             numbersOfChtldren: numbersOfChtldren,
-            roomType: RoomType(
-                id: 0,
-                name: "",
-                shortName: "",
-                price: 0
-            ),
+            roomType: roomType,
             wifi: wifi
         )
         dump(registration)
@@ -140,5 +157,13 @@ extension AddRegistrationTableViewController /*: UITableViewDelegate*/ {
         
         tableView.beginUpdates()
         tableView.endUpdates()
+    }
+}
+
+// MARK: - SelectRoomTypeTableViewProtocol
+extension AddRegistrationTableViewController: SelectRoomTypeTableViewProtocol {
+    func didSelect(roomType: RoomType) {
+        self.roomType = roomType
+        updateRoomType()
     }
 }
