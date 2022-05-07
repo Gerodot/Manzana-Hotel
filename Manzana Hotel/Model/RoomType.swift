@@ -12,7 +12,7 @@ struct RoomType {
     var price: Int
 }
 
-extension RoomType: Equatable{
+extension RoomType: Equatable {
     static func == (lhs: RoomType, rhs: RoomType) -> Bool {
         return lhs.id == rhs.id
     }

@@ -9,7 +9,13 @@ import UIKit
 
 class RefistrationsManager {
     func configure (_ cell: RegistrationsTableViewCell, with registration: Registration) {
-        cell.clientName.text = "\(registration.firstName) \(registration.lastName) (A:\(registration.numberOfAdults) Ch:\(registration.numbersOfChtldren))"
-        cell.roomNumer.text = "\(String(describing: registration.roomType!.id)) \(String(describing: registration.roomType!.name))"
+        let firstName = registration.firstName
+        let lastName = registration.lastName
+        let numberOfAdults = registration.numberOfAdults
+        let numbersOfChtldren = registration.numbersOfChtldren
+        let roomNumber = String(describing: registration.roomType!.id)
+        let roomName = String(describing: registration.roomType!.name)
+        cell.clientName.text = "\(firstName) \(lastName) (\(numberOfAdults) \(numbersOfChtldren))"
+        cell.roomNumer.text = "\(roomNumber) \(roomName)"
     }
 }

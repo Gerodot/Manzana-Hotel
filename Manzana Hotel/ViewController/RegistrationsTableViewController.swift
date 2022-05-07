@@ -29,12 +29,11 @@ extension RegistrationsTableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let registration = registrations[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RegistrationCell") as! RegistrationsTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RegistrationCell")
+                as? RegistrationsTableViewCell else {
+            fatalError("UITableViewCell failed while casting")
+        }
         registrationsManager.configure(cell, with: registration)
         return cell
     }
-
-
 }
-
-

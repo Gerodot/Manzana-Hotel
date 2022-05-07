@@ -22,66 +22,65 @@ class AddRegistrationTableViewController: UITableViewController {
     @IBOutlet var numberOfChildrenLabel: UILabel!
     @IBOutlet var wifiSwich: UISwitch!
     @IBOutlet var roomTypeLabel: UILabel!
-    
+    @IBOutlet var navigationTitile: UINavigationItem!
     // MARK: - Props
     let chekInDateLabelIndexPath = IndexPath(row: 0, section: 1)
-    let chekInDatePicherIndexPath = IndexPath (row: 1, section: 1)
+    let chekInDatePicherIndexPath = IndexPath(row: 1, section: 1)
     let chekOutDateLabelIndexPath = IndexPath(row: 2, section: 1)
-    let chekOutDatePicherIndexPath = IndexPath (row: 3, section: 1)
-    
+    let chekOutDatePicherIndexPath = IndexPath(row: 3, section: 1)
     var isChekInDatePickerShown: Bool = false {
         didSet {
             chekInDatePicker.isHidden = !isChekInDatePickerShown
         }
     }
     var isChekOutDatePickerShown: Bool = false {
-        didSet{
+        didSet {
             chekOutDatePicker.isHidden = !isChekOutDatePickerShown
         }
     }
-    
     var roomType: RoomType?
-    
     // MARK: - UIViewController Methds
     override func viewDidLoad() {
         super.viewDidLoad()
         let midnightToday = Calendar.current.startOfDay(for: Date())
         chekInDatePicker.minimumDate = midnightToday
         chekInDatePicker.date = midnightToday
-        
         updateDateView()
         updateNumberOfGuests()
         updateRoomType()
     }
-    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "SelectedRoomType" else { return }
-        let destonation = segue.destination as! SelectRoomTypeTableViewController
+        // Swift Lint "as!" bad way rewrite
+        guard let destonation = segue.destination
+            as? SelectRoomTypeTableViewController else { return }
         destonation.delegate = self
         destonation.roomType = roomType
     }
-    
     // MARK: - UI Methoods
+    //    func titleName() {
+    //        if emoji.symbol != "" && emoji.name != "" && emoji.description != "" && emoji.usage != "" {
+    //            titleLabel.title = "Edit"
+    //        }
+    //    }
+    // Update DateView
     func updateDateView() {
         chekOutDatePicker.minimumDate = chekInDatePicker.date.addingTimeInterval(60 * 60 * 24)
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.locale = Locale.current
-        
         chekInDateLabel.text = dateFormatter.string(from: chekInDatePicker.date)
         chekOutDateLabel.text = dateFormatter.string(from: chekOutDatePicker.date)
     }
-    
+    // Update number of guests
     func updateNumberOfGuests() {
         let numberOfAdults = Int(numberOfAdultsStepper.value)
         let numberOfChildren = Int(numberOfChildrenStepper.value)
         numberOfAdultsLabel.text = "\(numberOfAdults)"
         numberOfChildrenLabel.text = "\(numberOfChildren)"
-        
     }
-    
+    // Update room type
     func updateRoomType() {
         if let roomType = roomType {
             roomTypeLabel.text = roomType.name
@@ -89,12 +88,10 @@ class AddRegistrationTableViewController: UITableViewController {
             roomTypeLabel.text = "Not Set"
         }
     }
-    
     // MARK: - Actions
     @IBAction func datePickerValueChanged (_ sender: UIDatePicker) {
         updateDateView()
     }
-    
     @IBAction func doneButtonTapped (_ sender: UIBarButtonItem) {
         let firstName = firstNameTextField.text ?? ""
         let lastName = lastNameTextField.text ?? ""
@@ -105,7 +102,6 @@ class AddRegistrationTableViewController: UITableViewController {
         let numbersOfChtldren = Int(numberOfChildrenStepper.value)
         let roomType = roomType
         let wifi = wifiSwich.isOn
-        
         let registration = Registration(
             firstName: firstName,
             lastName: lastName,
@@ -121,7 +117,6 @@ class AddRegistrationTableViewController: UITableViewController {
         print(registration.chekOutDate)
         dump(registration)
     }
-    
     @IBAction func stepperValueChanged (_ sender: UIStepper) {
         updateNumberOfGuests()
     }
@@ -130,7 +125,7 @@ class AddRegistrationTableViewController: UITableViewController {
 // MARK: - UITableviewDataSource
 extension AddRegistrationTableViewController /*:UITableViewDataSource*/ {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath{
+        switch indexPath {
         case chekInDatePicherIndexPath:
             return isChekInDatePickerShown ? UITableView.automaticDimension : 0
         case chekOutDatePicherIndexPath:
@@ -154,7 +149,6 @@ extension AddRegistrationTableViewController /*: UITableViewDelegate*/ {
         default:
             return
         }
-        
         tableView.beginUpdates()
         tableView.endUpdates()
     }
