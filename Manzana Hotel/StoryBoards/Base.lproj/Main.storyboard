@@ -9,7 +9,7 @@
         <!--Add registration-->
         <scene sceneID="bp8-oB-bnV">
             <objects>
-                <tableViewController id="Sdt-32-j5z" customClass="AddRegistrationTableViewController" customModule="Manzana_Hotel" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Sdt-32-j5z" customClass="AddEditRegistrationTableViewController" customModule="Manzana_Hotel" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="Dwv-bt-mGe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -418,33 +418,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RegistrationCell" textLabel="5Wl-Qw-FNA" detailTextLabel="lAU-hf-iZT" style="IBUITableViewCellStyleSubtitle" id="mpy-PA-4KL" customClass="RegistrationsTableViewCell" customModule="Manzana_Hotel" customModuleProvider="target">
-                                <rect key="frame" x="20" y="32" width="374" height="54.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RegistrationCell" textLabel="5Wl-Qw-FNA" detailTextLabel="lAU-hf-iZT" style="IBUITableViewCellStyleSubtitle" id="mpy-PA-4KL">
+                                <rect key="frame" x="20" y="32" width="374" height="81.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mpy-PA-4KL" id="KB4-np-rNR">
-                                    <rect key="frame" x="0.0" y="0.0" width="345.5" height="54.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="345.5" height="81.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Client Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Wl-Qw-FNA">
-                                            <rect key="frame" x="20" y="11" width="93.5" height="20.5"/>
+                                            <rect key="frame" x="20" y="14.5" width="132.5" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Room number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lAU-hf-iZT">
-                                            <rect key="frame" x="20" y="31.5" width="73.5" height="13.5"/>
+                                            <rect key="frame" x="20" y="46" width="107.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="clientName" destination="5Wl-Qw-FNA" id="qsN-FL-IuX"/>
-                                    <outlet property="roomNumer" destination="lAU-hf-iZT" id="Lod-Il-dSg"/>
-                                    <segue destination="Sdt-32-j5z" kind="show" identifier="EditRegistration" id="buI-6Q-geI"/>
+                                    <segue destination="Sdt-32-j5z" kind="show" identifier="editRegistration" id="buI-6Q-geI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

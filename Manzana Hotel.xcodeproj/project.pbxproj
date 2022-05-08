@@ -14,12 +14,10 @@
 		2D602EB12821BC7C00A05D5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D602EAF2821BC7C00A05D5B /* LaunchScreen.storyboard */; };
 		2D602EBE2821BFF900A05D5B /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D602EBD2821BFF900A05D5B /* Registration.swift */; };
 		2D602EC02821C0BD00A05D5B /* RoomType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D602EBF2821C0BD00A05D5B /* RoomType.swift */; };
-		2D602EC42821C3A300A05D5B /* AddRegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D602EC32821C3A300A05D5B /* AddRegistrationTableViewController.swift */; };
+		2D602EC42821C3A300A05D5B /* AddEditRegistrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D602EC32821C3A300A05D5B /* AddEditRegistrationTableViewController.swift */; };
 		2D602EC62824EDDC00A05D5B /* SelectRoomTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D602EC52824EDDC00A05D5B /* SelectRoomTypeTableViewController.swift */; };
 		2D602EC92824F54C00A05D5B /* SelectRoomTypeTableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D602EC82824F54C00A05D5B /* SelectRoomTypeTableViewProtocol.swift */; };
 		2D7ED77828258FEF00899C4F /* RegistrationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7ED77728258FEF00899C4F /* RegistrationsTableViewController.swift */; };
-		2D7ED77C2825AB1200899C4F /* RefistrationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7ED77B2825AB1200899C4F /* RefistrationsManager.swift */; };
-		2D7ED77F2825ABA500899C4F /* RegistrationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7ED77E2825ABA500899C4F /* RegistrationsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,13 +30,12 @@
 		2D602EB22821BC7C00A05D5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D602EBD2821BFF900A05D5B /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
 		2D602EBF2821C0BD00A05D5B /* RoomType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomType.swift; sourceTree = "<group>"; };
-		2D602EC32821C3A300A05D5B /* AddRegistrationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRegistrationTableViewController.swift; sourceTree = "<group>"; };
+		2D602EC32821C3A300A05D5B /* AddEditRegistrationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditRegistrationTableViewController.swift; sourceTree = "<group>"; };
 		2D602EC52824EDDC00A05D5B /* SelectRoomTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoomTypeTableViewController.swift; sourceTree = "<group>"; };
 		2D602EC82824F54C00A05D5B /* SelectRoomTypeTableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoomTypeTableViewProtocol.swift; sourceTree = "<group>"; };
 		2D7ED77628258EF000899C4F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2D7ED77728258FEF00899C4F /* RegistrationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationsTableViewController.swift; sourceTree = "<group>"; };
-		2D7ED77B2825AB1200899C4F /* RefistrationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefistrationsManager.swift; sourceTree = "<group>"; };
-		2D7ED77E2825ABA500899C4F /* RegistrationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationsTableViewCell.swift; sourceTree = "<group>"; };
+		2DCBE0DF28285C7D00849455 /* backupRegistration.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = backupRegistration.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				2D602EB92821BC9E00A05D5B /* App */,
-				2D7ED77A2825AAF300899C4F /* Managers */,
 				2D602EBB2821BF0A00A05D5B /* Model */,
 				2D602EC72824F51E00A05D5B /* Protoclols */,
 				2D602EBA2821BCD300A05D5B /* StoryBoards */,
@@ -96,7 +92,6 @@
 		2D602EBA2821BCD300A05D5B /* StoryBoards */ = {
 			isa = PBXGroup;
 			children = (
-				2D7ED77D2825AB8E00899C4F /* Cells */,
 				2D602EAA2821BC7700A05D5B /* Main.storyboard */,
 				2D602EAF2821BC7C00A05D5B /* LaunchScreen.storyboard */,
 			);
@@ -115,9 +110,10 @@
 		2D602EBC2821BF2300A05D5B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				2D602EC32821C3A300A05D5B /* AddRegistrationTableViewController.swift */,
+				2D602EC32821C3A300A05D5B /* AddEditRegistrationTableViewController.swift */,
 				2D602EC52824EDDC00A05D5B /* SelectRoomTypeTableViewController.swift */,
 				2D7ED77728258FEF00899C4F /* RegistrationsTableViewController.swift */,
+				2DCBE0DF28285C7D00849455 /* backupRegistration.md */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -128,22 +124,6 @@
 				2D602EC82824F54C00A05D5B /* SelectRoomTypeTableViewProtocol.swift */,
 			);
 			path = Protoclols;
-			sourceTree = "<group>";
-		};
-		2D7ED77A2825AAF300899C4F /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				2D7ED77B2825AB1200899C4F /* RefistrationsManager.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		2D7ED77D2825AB8E00899C4F /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				2D7ED77E2825ABA500899C4F /* RegistrationsTableViewCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,12 +221,10 @@
 			files = (
 				2D602EC62824EDDC00A05D5B /* SelectRoomTypeTableViewController.swift in Sources */,
 				2D602EC02821C0BD00A05D5B /* RoomType.swift in Sources */,
-				2D602EC42821C3A300A05D5B /* AddRegistrationTableViewController.swift in Sources */,
+				2D602EC42821C3A300A05D5B /* AddEditRegistrationTableViewController.swift in Sources */,
 				2D602EA52821BC7700A05D5B /* AppDelegate.swift in Sources */,
 				2D602EBE2821BFF900A05D5B /* Registration.swift in Sources */,
 				2D602EA72821BC7700A05D5B /* SceneDelegate.swift in Sources */,
-				2D7ED77F2825ABA500899C4F /* RegistrationsTableViewCell.swift in Sources */,
-				2D7ED77C2825AB1200899C4F /* RefistrationsManager.swift in Sources */,
 				2D7ED77828258FEF00899C4F /* RegistrationsTableViewController.swift in Sources */,
 				2D602EC92824F54C00A05D5B /* SelectRoomTypeTableViewProtocol.swift in Sources */,
 			);

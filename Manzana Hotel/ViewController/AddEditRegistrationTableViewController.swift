@@ -1,5 +1,5 @@
 //
-//  AddRegistrationTableViewController.swift
+//  AddEditRegistrationTableViewController.swift
 //  Manzana Hotel
 //
 //  Created by Gerodot on 5/3/22.
@@ -7,7 +7,8 @@
 
 import UIKit
 
-class AddRegistrationTableViewController: UITableViewController {
+class AddEditRegistrationTableViewController: UITableViewController {
+
     // MARK: - Outlets
     @IBOutlet var firstNameTextField: UITextField!
     @IBOutlet var lastNameTextField: UITextField!
@@ -23,11 +24,13 @@ class AddRegistrationTableViewController: UITableViewController {
     @IBOutlet var wifiSwich: UISwitch!
     @IBOutlet var roomTypeLabel: UILabel!
     @IBOutlet var navigationTitile: UINavigationItem!
+
     // MARK: - Props
     let chekInDateLabelIndexPath = IndexPath(row: 0, section: 1)
     let chekInDatePicherIndexPath = IndexPath(row: 1, section: 1)
     let chekOutDateLabelIndexPath = IndexPath(row: 2, section: 1)
     let chekOutDatePicherIndexPath = IndexPath(row: 3, section: 1)
+
     var isChekInDatePickerShown: Bool = false {
         didSet {
             chekInDatePicker.isHidden = !isChekInDatePickerShown
@@ -38,7 +41,10 @@ class AddRegistrationTableViewController: UITableViewController {
             chekOutDatePicker.isHidden = !isChekOutDatePickerShown
         }
     }
+
     var roomType: RoomType?
+    var registration: Registration?
+
     // MARK: - UIViewController Methds
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,23 +54,45 @@ class AddRegistrationTableViewController: UITableViewController {
         updateDateView()
         updateNumberOfGuests()
         updateRoomType()
+        editMode()
     }
+
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         guard segue.identifier == "SelectedRoomType" else { return }
         // Swift Lint "as!" bad way rewrite
-        guard let destonation = segue.destination
-            as? SelectRoomTypeTableViewController else { return }
-        destonation.delegate = self
-        destonation.roomType = roomType
+
+        guard let destination = segue.destination
+                as? SelectRoomTypeTableViewController else { return }
+
+        destination.delegate = self
+        destination.roomType = roomType
     }
     // MARK: - UI Methoods
-    //    func titleName() {
-    //        if emoji.symbol != "" && emoji.name != "" && emoji.description != "" && emoji.usage != "" {
-    //            titleLabel.title = "Edit"
-    //        }
-    //    }
-    // Update DateView
+    func editMode() {
+        if let registration = registration {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.locale = Locale.current
+
+            navigationTitile.title = "Edit registration"
+            firstNameTextField.text = registration.firstName
+            lastNameTextField.text = registration.firstName
+            emailTextField.text = registration.email
+            chekInDateLabel.text = dateFormatter.string(from: registration.chekInDate)
+            chekInDatePicker.minimumDate = registration.chekInDate
+            chekOutDateLabel.text = dateFormatter.string(from: registration.chekOutDate)
+            chekOutDatePicker.minimumDate = registration.chekInDate.addingTimeInterval(60 * 60 * 24)
+            numberOfAdultsStepper.value = Double(registration.numberOfAdults)
+            numberOfAdultsLabel.text = String(registration.numberOfAdults)
+            numberOfChildrenStepper.value = Double(registration.numbersOfChtldren)
+            numberOfChildrenLabel.text = String(registration.numbersOfChtldren)
+            wifiSwich.isOn = registration.wifi
+            roomTypeLabel.text = registration.roomType?.name
+        }
+    }
+
     func updateDateView() {
         chekOutDatePicker.minimumDate = chekInDatePicker.date.addingTimeInterval(60 * 60 * 24)
         let dateFormatter = DateFormatter()
@@ -73,14 +101,14 @@ class AddRegistrationTableViewController: UITableViewController {
         chekInDateLabel.text = dateFormatter.string(from: chekInDatePicker.date)
         chekOutDateLabel.text = dateFormatter.string(from: chekOutDatePicker.date)
     }
-    // Update number of guests
+
     func updateNumberOfGuests() {
         let numberOfAdults = Int(numberOfAdultsStepper.value)
         let numberOfChildren = Int(numberOfChildrenStepper.value)
         numberOfAdultsLabel.text = "\(numberOfAdults)"
         numberOfChildrenLabel.text = "\(numberOfChildren)"
     }
-    // Update room type
+
     func updateRoomType() {
         if let roomType = roomType {
             roomTypeLabel.text = roomType.name
@@ -88,6 +116,7 @@ class AddRegistrationTableViewController: UITableViewController {
             roomTypeLabel.text = "Not Set"
         }
     }
+
     // MARK: - Actions
     @IBAction func datePickerValueChanged (_ sender: UIDatePicker) {
         updateDateView()
@@ -123,7 +152,7 @@ class AddRegistrationTableViewController: UITableViewController {
 }
 
 // MARK: - UITableviewDataSource
-extension AddRegistrationTableViewController /*:UITableViewDataSource*/ {
+extension AddEditRegistrationTableViewController /*:UITableViewDataSource*/ {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath {
         case chekInDatePicherIndexPath:
@@ -137,7 +166,7 @@ extension AddRegistrationTableViewController /*:UITableViewDataSource*/ {
 }
 
 // MARK: - UITableViewDelegate
-extension AddRegistrationTableViewController /*: UITableViewDelegate*/ {
+extension AddEditRegistrationTableViewController /*: UITableViewDelegate*/ {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath {
         case chekInDateLabelIndexPath:
@@ -155,7 +184,7 @@ extension AddRegistrationTableViewController /*: UITableViewDelegate*/ {
 }
 
 // MARK: - SelectRoomTypeTableViewProtocol
-extension AddRegistrationTableViewController: SelectRoomTypeTableViewProtocol {
+extension AddEditRegistrationTableViewController: SelectRoomTypeTableViewProtocol {
     func didSelect(roomType: RoomType) {
         self.roomType = roomType
         updateRoomType()

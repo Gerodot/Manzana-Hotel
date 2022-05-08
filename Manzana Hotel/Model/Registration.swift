@@ -20,36 +20,37 @@ struct Registration {
 }
 
 extension Registration {
+    // Test data
     static var all: [Registration] {
-        let midnightToday = Calendar.current.startOfDay(for: Date())
-        let tomorrow = midnightToday.addingTimeInterval(60 * 60 * 24)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         return [
             Registration(
                 firstName: "Jhon",
                 lastName: "Appleseed",
                 email: "jhon@appleseed.com",
-                chekInDate: midnightToday,
-                chekOutDate: tomorrow,
+                chekInDate: dateFormatter.date(from: "2016/10/08 22:31")!,
+                chekOutDate: dateFormatter.date(from: "2016/11/28 22:31")!,
                 numberOfAdults: 1,
                 numbersOfChtldren: 0,
                 roomType: RoomType(
-                    id: 0,
+                    id: 202,
                     name: "Two Queens",
                     shortName: "2Q",
                     price: 179
                 ),
-                wifi: true
+                wifi: false
             ),
             Registration(
                 firstName: "Hoshimi",
                 lastName: "Nagate",
                 email: "hoshimi@nagate.jp",
-                chekInDate: midnightToday,
-                chekOutDate: tomorrow,
+                chekInDate: dateFormatter.date(from: "2016/10/08 22:31")!,
+                chekOutDate: dateFormatter.date(from: "2016/11/28 22:31")!,
                 numberOfAdults: 1,
                 numbersOfChtldren: 0,
                 roomType: RoomType(
-                    id: 2,
+                    id: 401,
                     name: "Penthouse Suite",
                     shortName: "PHS",
                     price: 309
@@ -57,8 +58,5 @@ extension Registration {
                 wifi: true
             )
         ]
-    }
-    static func loadDefault () -> [Registration] {
-        return all
     }
 }
