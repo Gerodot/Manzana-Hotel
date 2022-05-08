@@ -61,9 +61,9 @@ extension RegistrationsTableViewController /*: UITableViewDataSource*/ {
 
         let fullString = NSMutableAttributedString(string: "\(roomName) - ")
         fullString.append(NSAttributedString(attachment: adulsSFImage))
-        fullString.append(NSAttributedString(string: ": \(numberOfAdults) "))
+        fullString.append(NSAttributedString(string: ":\(numberOfAdults) "))
         fullString.append(NSAttributedString(attachment: childrenSFImage))
-        fullString.append(NSAttributedString(string: ": \(numbersOfChtldren) "))
+        fullString.append(NSAttributedString(string: ":\(numbersOfChtldren) "))
         if registration.wifi {
             fullString.append(NSAttributedString(attachment: wifiSFImage))
         }
