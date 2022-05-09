@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Registration {
+struct Registration: Codable {
     var firstName: String
     var lastName: String
     var email: String
@@ -23,7 +23,7 @@ extension Registration {
     // Test data
     static var all: [Registration] {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        dateFormatter.dateFormat = "yyyy/mm/dd hh:mm"
         return [
             Registration(
                 firstName: "Jhon",
@@ -54,6 +54,22 @@ extension Registration {
                     name: "Penthouse Suite",
                     shortName: "PHS",
                     price: 309
+                ),
+                wifi: true
+            ),
+            Registration(
+                firstName: "Vuasya",
+                lastName: "Pumpkin",
+                email: "vyasya@pumpkon.ru",
+                chekInDate: dateFormatter.date(from: "2016/10/08 22:31")!,
+                chekOutDate: dateFormatter.date(from: "2016/11/28 22:31")!,
+                numberOfAdults: 2,
+                numbersOfChtldren: 2,
+                roomType: RoomType(
+                    id: 133,
+                    name: "Two Queens",
+                    shortName: "2Q",
+                    price: 179
                 ),
                 wifi: true
             )

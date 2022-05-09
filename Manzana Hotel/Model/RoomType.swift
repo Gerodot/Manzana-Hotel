@@ -5,7 +5,7 @@
 //  Created by Gerodot on 5/3/22.
 //
 
-struct RoomType {
+struct RoomType: Codable {
     var id: Int
     var name: String
     var shortName: String

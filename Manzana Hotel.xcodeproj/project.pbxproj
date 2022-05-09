@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D39BEA1282964BD0047B556 /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D39BEA0282964BD0047B556 /* DataStorage.swift */; };
 		2D602EA52821BC7700A05D5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D602EA42821BC7700A05D5B /* AppDelegate.swift */; };
 		2D602EA72821BC7700A05D5B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D602EA62821BC7700A05D5B /* SceneDelegate.swift */; };
 		2D602EAC2821BC7700A05D5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D602EAA2821BC7700A05D5B /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D39BEA0282964BD0047B556 /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
 		2D602EA12821BC7700A05D5B /* Manzana Hotel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manzana Hotel.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D602EA42821BC7700A05D5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D602EA62821BC7700A05D5B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,7 +37,7 @@
 		2D602EC82824F54C00A05D5B /* SelectRoomTypeTableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRoomTypeTableViewProtocol.swift; sourceTree = "<group>"; };
 		2D7ED77628258EF000899C4F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2D7ED77728258FEF00899C4F /* RegistrationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationsTableViewController.swift; sourceTree = "<group>"; };
-		2DCBE0DF28285C7D00849455 /* backupRegistration.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = backupRegistration.md; sourceTree = "<group>"; };
+		2D819017282932730019CBE1 /* Manzana Hotel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Manzana Hotel.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 		2D602EA32821BC7700A05D5B /* Manzana Hotel */ = {
 			isa = PBXGroup;
 			children = (
+				2D819017282932730019CBE1 /* Manzana Hotel.entitlements */,
 				2D602EB92821BC9E00A05D5B /* App */,
 				2D602EBB2821BF0A00A05D5B /* Model */,
 				2D602EC72824F51E00A05D5B /* Protoclols */,
@@ -103,6 +106,7 @@
 			children = (
 				2D602EBD2821BFF900A05D5B /* Registration.swift */,
 				2D602EBF2821C0BD00A05D5B /* RoomType.swift */,
+				2D39BEA0282964BD0047B556 /* DataStorage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -113,7 +117,6 @@
 				2D602EC32821C3A300A05D5B /* AddEditRegistrationTableViewController.swift */,
 				2D602EC52824EDDC00A05D5B /* SelectRoomTypeTableViewController.swift */,
 				2D7ED77728258FEF00899C4F /* RegistrationsTableViewController.swift */,
-				2DCBE0DF28285C7D00849455 /* backupRegistration.md */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				2D602EC62824EDDC00A05D5B /* SelectRoomTypeTableViewController.swift in Sources */,
 				2D602EC02821C0BD00A05D5B /* RoomType.swift in Sources */,
 				2D602EC42821C3A300A05D5B /* AddEditRegistrationTableViewController.swift in Sources */,
+				2D39BEA1282964BD0047B556 /* DataStorage.swift in Sources */,
 				2D602EA52821BC7700A05D5B /* AppDelegate.swift in Sources */,
 				2D602EBE2821BFF900A05D5B /* Registration.swift in Sources */,
 				2D602EA72821BC7700A05D5B /* SceneDelegate.swift in Sources */,
@@ -371,6 +375,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Manzana Hotel/Manzana Hotel.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XCNPSXVE8H;
@@ -388,6 +393,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.gerasimof.Manzana-Hotel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -399,6 +405,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Manzana Hotel/Manzana Hotel.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XCNPSXVE8H;
@@ -416,6 +423,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.gerasimof.Manzana-Hotel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

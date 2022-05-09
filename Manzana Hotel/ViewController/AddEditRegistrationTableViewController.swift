@@ -60,11 +60,11 @@ class AddEditRegistrationTableViewController: UITableViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-        guard segue.identifier == "SelectedRoomType" else { return }
-        // Swift Lint "as!" bad way rewrite
-
-        guard let destination = segue.destination
-                as? SelectRoomTypeTableViewController else { return }
+        guard segue.identifier == "SelectedRoomType",
+            let destination = segue.destination
+                as? SelectRoomTypeTableViewController
+                // Swift Lint "as!" bad way rewrite to guard let
+        else { return }
 
         destination.delegate = self
         destination.roomType = roomType
@@ -78,7 +78,7 @@ class AddEditRegistrationTableViewController: UITableViewController {
 
             navigationTitile.title = "Edit registration"
             firstNameTextField.text = registration.firstName
-            lastNameTextField.text = registration.firstName
+            lastNameTextField.text = registration.lastName
             emailTextField.text = registration.email
             chekInDateLabel.text = dateFormatter.string(from: registration.chekInDate)
             chekInDatePicker.minimumDate = registration.chekInDate

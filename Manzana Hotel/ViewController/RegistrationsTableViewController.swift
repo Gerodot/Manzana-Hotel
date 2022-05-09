@@ -8,15 +8,19 @@
 import UIKit
 
 class RegistrationsTableViewController: UITableViewController {
-
-    // MARK: - Properites
-    var registrations: [Registration]!
+// MARK: - Properites
+    let dataStorage = DataStorage()
     var roomType: RoomType?
+    var registrations: [Registration]! {
+        didSet {
+            dataStorage.saveRegistraionsDB(registrations)
+        }
+    }
 
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        registrations = Registration.all
+        registrations = dataStorage.loadRegistraionsDB() ?? Registration.all
     }
 
     // MARK: - Navigatiom
@@ -25,25 +29,25 @@ class RegistrationsTableViewController: UITableViewController {
             segue.identifier == "editRegistration",
             let selectedPath = tableView.indexPathForSelectedRow,
             let description = segue.destination as? AddEditRegistrationTableViewController
-        else {return}
+        else { return }
 
         let registration = registrations[selectedPath.row]
-        dump(registration)
         description.registration = registration
-        dump(description.registration)
     }
 }
 
 // MARK: - UITableViewDataSource
 extension RegistrationsTableViewController /*: UITableViewDataSource*/ {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Registration.all.count
+        return registrations.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegistrationCell", for: indexPath)
 
-        let registration = Registration.all[indexPath.row]
+        // Get registration value from registrations array
+        let registration = registrations[indexPath.row]
 
+        // Declaring service variables (Lint Best Practicles)
         let firstName = registration.firstName
         let lastName = registration.lastName
         let numberOfAdults = registration.numberOfAdults
@@ -51,25 +55,29 @@ extension RegistrationsTableViewController /*: UITableViewDataSource*/ {
         let roomNumber = String(describing: registration.roomType!.id)
         let roomName = String(describing: registration.roomType!.name)
 
+        // Declaring icons from SF Sybols library
         let adulsSFImage = NSTextAttachment()
         let childrenSFImage = NSTextAttachment()
         let wifiSFImage = NSTextAttachment()
 
+        // Insert SF Symbol value to icon variables
         adulsSFImage.image = UIImage(systemName: "person.fill")?.withTintColor(UIColor.label)
         childrenSFImage.image = UIImage(systemName: "person.2.fill")?.withTintColor(UIColor.label)
         wifiSFImage.image = UIImage(systemName: "wifi")?.withTintColor(UIColor.label)
 
-        let fullString = NSMutableAttributedString(string: "\(roomName) - ")
-        fullString.append(NSAttributedString(attachment: adulsSFImage))
-        fullString.append(NSAttributedString(string: ":\(numberOfAdults) "))
-        fullString.append(NSAttributedString(attachment: childrenSFImage))
-        fullString.append(NSAttributedString(string: ":\(numbersOfChtldren) "))
+        // Ganeration of the String line
+        let detailString = NSMutableAttributedString(string: "\(roomName) - ")
+        detailString.append(NSAttributedString(attachment: adulsSFImage))
+        detailString.append(NSAttributedString(string: ":\(numberOfAdults) "))
+        detailString.append(NSAttributedString(attachment: childrenSFImage))
+        detailString.append(NSAttributedString(string: ":\(numbersOfChtldren) "))
         if registration.wifi {
-            fullString.append(NSAttributedString(attachment: wifiSFImage))
+            detailString.append(NSAttributedString(attachment: wifiSFImage))
         }
 
+        // Send date to cell labels
         cell.textLabel?.text = "\(roomNumber) - \(firstName) \(lastName)"
-        cell.detailTextLabel?.attributedText = fullString
+        cell.detailTextLabel?.attributedText = detailString
 
         return cell
     }
