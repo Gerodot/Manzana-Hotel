@@ -1,5 +1,5 @@
 //
-//  SelectRoomTypeTableViewController.swift
+//  SelectRoomTypeTableVC.swift
 //  Manzana Hotel
 //
 //  Created by Gerodot on 5/6/22.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-class SelectRoomTypeTableViewController: UITableViewController {
-    var delegate: SelectRoomTypeTableViewProtocol?
+class SelectRoomTypeTableVC: UITableViewController {
+    var delegate: SelectRoomTypeTableVCP?
     var roomType: RoomType?
 }
 // MARK: - UITableViewDataSource
-extension SelectRoomTypeTableViewController /*: UITableViewDataSource*/ {
+extension SelectRoomTypeTableVC /*: UITableViewDataSource*/ {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RoomType.all.count
     }
@@ -27,7 +27,7 @@ extension SelectRoomTypeTableViewController /*: UITableViewDataSource*/ {
 }
 
 // MARK: - UITableViewDelegate
-extension SelectRoomTypeTableViewController/*: UITableViewDelegate*/ {
+extension SelectRoomTypeTableVC/*: UITableViewDelegate*/ {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         roomType = RoomType.all[indexPath.row]

@@ -17,7 +17,6 @@ class DataStorage {
     // MARK: - Methods
     // JSON file data loader
     func loadRegistraionsDB () -> [Registration]? {
-        print(#line, #function, registrationsDBURL ?? "URL Not available")
         guard let registrationsDBURL = registrationsDBURL else {return nil}
         guard let encodedRegistraionsDB = try? Data(contentsOf: registrationsDBURL) else { return nil }
 
@@ -27,7 +26,6 @@ class DataStorage {
 
     // Save data to JSON file
     func saveRegistraionsDB(_ registrations: [Registration]) {
-        print(#line, #function, registrationsDBURL ?? "URL Not available")
         guard let archiveURL = registrationsDBURL else {return}
 
         let encoder = JSONEncoder()

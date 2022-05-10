@@ -1,5 +1,5 @@
 //
-//  AddEditRegistrationTableViewController.swift
+//  AddEditRegistrationTableVC.swift
 //  Manzana Hotel
 //
 //  Created by Gerodot on 5/3/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddEditRegistrationTableViewController: UITableViewController {
+class AddEditRegistrationTableVC: UITableViewController {
 
     // MARK: - Outlets
     @IBOutlet var firstNameTextField: UITextField!
@@ -60,18 +60,22 @@ class AddEditRegistrationTableViewController: UITableViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-        guard segue.identifier == "SelectedRoomType",
-            let destination = segue.destination
-                as? SelectRoomTypeTableViewController
-                // Swift Lint "as!" bad way rewrite to guard let
-        else { return }
+        if segue.identifier == "SelectedRoomType" {
+            guard let destination = segue.destination as? SelectRoomTypeTableVC else { return }
+            // Swift Lint "as!" bad way rewrite to guard let
+            destination.delegate = self
+            destination.roomType = roomType
+        } else if segue.identifier == "SaveRegistration" {
+            saveRegistration()
+        }
 
-        destination.delegate = self
-        destination.roomType = roomType
     }
     // MARK: - UI Methoods
     func editMode() {
         if let registration = registration {
+            print(#line, #function)
+            dump(registration)
+
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
             dateFormatter.locale = Locale.current
@@ -89,8 +93,36 @@ class AddEditRegistrationTableViewController: UITableViewController {
             numberOfChildrenStepper.value = Double(registration.numbersOfChtldren)
             numberOfChildrenLabel.text = String(registration.numbersOfChtldren)
             wifiSwich.isOn = registration.wifi
+            roomType = registration.roomType
             roomTypeLabel.text = registration.roomType?.name
         }
+    }
+
+    func saveRegistration() {
+        let firstName = firstNameTextField.text ?? ""
+        let lastName = lastNameTextField.text ?? ""
+        let email = emailTextField.text ?? ""
+        let chekInDate = chekInDatePicker.date
+        let chekOutDate = chekOutDatePicker.date
+        let numberOfAdults = Int(numberOfAdultsStepper.value)
+        let numbersOfChtldren = Int(numberOfChildrenStepper.value)
+        let roomType = roomType
+        let wifi = wifiSwich.isOn
+
+        registration = Registration(
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            chekInDate: chekInDate,
+            chekOutDate: chekOutDate,
+            numberOfAdults: numberOfAdults,
+            numbersOfChtldren: numbersOfChtldren,
+            roomType: roomType,
+            wifi: wifi
+        )
+
+        print(#line, #function, "Registration Value:")
+        dump(registration)
     }
 
     func updateDateView() {
@@ -121,38 +153,14 @@ class AddEditRegistrationTableViewController: UITableViewController {
     @IBAction func datePickerValueChanged (_ sender: UIDatePicker) {
         updateDateView()
     }
-    @IBAction func doneButtonTapped (_ sender: UIBarButtonItem) {
-        let firstName = firstNameTextField.text ?? ""
-        let lastName = lastNameTextField.text ?? ""
-        let email = emailTextField.text ?? ""
-        let chekInDate = chekInDatePicker.date
-        let chekOutDate = chekOutDatePicker.date
-        let numberOfAdults = Int(numberOfAdultsStepper.value)
-        let numbersOfChtldren = Int(numberOfChildrenStepper.value)
-        let roomType = roomType
-        let wifi = wifiSwich.isOn
-        let registration = Registration(
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            chekInDate: chekInDate,
-            chekOutDate: chekOutDate,
-            numberOfAdults: numberOfAdults,
-            numbersOfChtldren: numbersOfChtldren,
-            roomType: roomType,
-            wifi: wifi
-        )
-        print(registration.chekInDate)
-        print(registration.chekOutDate)
-        dump(registration)
-    }
+
     @IBAction func stepperValueChanged (_ sender: UIStepper) {
         updateNumberOfGuests()
     }
 }
 
 // MARK: - UITableviewDataSource
-extension AddEditRegistrationTableViewController /*:UITableViewDataSource*/ {
+extension AddEditRegistrationTableVC /*:UITableViewDataSource*/ {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath {
         case chekInDatePicherIndexPath:
@@ -166,7 +174,7 @@ extension AddEditRegistrationTableViewController /*:UITableViewDataSource*/ {
 }
 
 // MARK: - UITableViewDelegate
-extension AddEditRegistrationTableViewController /*: UITableViewDelegate*/ {
+extension AddEditRegistrationTableVC /*: UITableViewDelegate*/ {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath {
         case chekInDateLabelIndexPath:
@@ -184,7 +192,7 @@ extension AddEditRegistrationTableViewController /*: UITableViewDelegate*/ {
 }
 
 // MARK: - SelectRoomTypeTableViewProtocol
-extension AddEditRegistrationTableViewController: SelectRoomTypeTableViewProtocol {
+extension AddEditRegistrationTableVC: SelectRoomTypeTableVCP {
     func didSelect(roomType: RoomType) {
         self.roomType = roomType
         updateRoomType()

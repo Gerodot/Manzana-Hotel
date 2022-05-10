@@ -1,5 +1,5 @@
 //
-//  RegistrationsTableViewController.swift
+//  RegistrationsTableVC.swift
 //  Manzana Hotel
 //
 //  Created by Gerodot on 5/6/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegistrationsTableViewController: UITableViewController {
+class RegistrationsTableVC: UITableViewController {
 // MARK: - Properites
     let dataStorage = DataStorage()
     var roomType: RoomType?
@@ -26,9 +26,9 @@ class RegistrationsTableViewController: UITableViewController {
     // MARK: - Navigatiom
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard
-            segue.identifier == "editRegistration",
+            segue.identifier == "EditRegistration",
             let selectedPath = tableView.indexPathForSelectedRow,
-            let description = segue.destination as? AddEditRegistrationTableViewController
+            let description = segue.destination as? AddEditRegistrationTableVC
         else { return }
 
         let registration = registrations[selectedPath.row]
@@ -37,7 +37,7 @@ class RegistrationsTableViewController: UITableViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension RegistrationsTableViewController /*: UITableViewDataSource*/ {
+extension RegistrationsTableVC /*: UITableViewDataSource*/ {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return registrations.count
     }
@@ -80,5 +80,52 @@ extension RegistrationsTableViewController /*: UITableViewDataSource*/ {
         cell.detailTextLabel?.attributedText = detailString
 
         return cell
+    }
+}
+
+// MARK: - Actions
+//extension RegistrationsTableVC {
+//    @IBAction func unwindFromAddEditRegistration(_ segue: UIStoryboardSegue) {
+//        print(#line, #function, segue.identifier)
+//        guard
+//            segue.identifier == "SaveRegistration",
+//            let source = segue.source as? AddEditRegistrationTableVC
+//        else { return }
+//
+//        let registrationCell = source.registration
+//        dump(registrationCell)
+//        if let selectedPath = tableView.indexPathForSelectedRow {
+//            // Edited Cell
+//            registrations[selectedPath.row] = registrationCell
+//            tableView.reloadRows(at: [selectedPath], with: .automatic)
+//        } else {
+//            // Add Cell
+//            let indexPath = IndexPath(row: registrations.count, section: 0)
+//            registrations.append(registrationCell)
+//            tableView.insertRows(at: [indexPath], with: .automatic)
+//        }
+//    }
+//}
+
+extension RegistrationsTableVC {
+    @IBAction func unwind(_ segue: UIStoryboardSegue) {
+
+        guard
+            segue.identifier == "SaveRegistration",
+            let source = segue.source as? AddEditRegistrationTableVC
+        else { return }
+
+        let registration = source.registration!
+
+        if let selectedPath = tableView.indexPathForSelectedRow {
+            // Edited cell
+            registrations[selectedPath.row] = registration
+            tableView.reloadRows(at: [selectedPath], with: .automatic)
+        } else {
+            // Added cell
+            let indexPath = IndexPath(row: registrations.count, section: 0)
+            registrations.append(registration)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
     }
 }
