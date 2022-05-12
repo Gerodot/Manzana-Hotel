@@ -73,8 +73,6 @@ class AddEditRegistrationTableVC: UITableViewController {
     // MARK: - UI Methoods
     func editMode() {
         if let registration = registration {
-            print(#line, #function)
-            dump(registration)
 
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
@@ -93,8 +91,8 @@ class AddEditRegistrationTableVC: UITableViewController {
             numberOfChildrenStepper.value = Double(registration.numbersOfChtldren)
             numberOfChildrenLabel.text = String(registration.numbersOfChtldren)
             wifiSwich.isOn = registration.wifi
-            roomType = registration.roomType
-            roomTypeLabel.text = registration.roomType?.name
+            roomType = registration.roomType // very important value !!!
+            roomTypeLabel.text =  "\(registration.roomType!.id) - \(registration.roomType!.name)"
         }
     }
 
@@ -120,9 +118,6 @@ class AddEditRegistrationTableVC: UITableViewController {
             roomType: roomType,
             wifi: wifi
         )
-
-        print(#line, #function, "Registration Value:")
-        dump(registration)
     }
 
     func updateDateView() {
@@ -143,7 +138,7 @@ class AddEditRegistrationTableVC: UITableViewController {
 
     func updateRoomType() {
         if let roomType = roomType {
-            roomTypeLabel.text = roomType.name
+            roomTypeLabel.text = "\(roomType.id) - \(roomType.name)"
         } else {
             roomTypeLabel.text = "Not Set"
         }

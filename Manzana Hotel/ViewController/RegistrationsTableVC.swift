@@ -9,18 +9,30 @@ import UIKit
 
 class RegistrationsTableVC: UITableViewController {
 // MARK: - Properites
+
     let dataStorage = DataStorage()
     var roomType: RoomType?
     var registrations: [Registration]! {
         didSet {
             dataStorage.saveRegistraionsDB(registrations)
+            sortByFloor()
         }
     }
+
+    var regByFloor: [[Registration]] = []
 
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         registrations = dataStorage.loadRegistraionsDB() ?? Registration.all
+        sortByFloor()
+    }
+
+    func sortByFloor() {
+        // Sort arrays of registrations by floors
+        regByFloor = Array(Dictionary(grouping: registrations) { $0.roomType!.floor }.values)
+            .sorted(by: { $0[0].roomType!.floor < $1[0].roomType!.floor })
+
     }
 
     // MARK: - Navigatiom
@@ -38,14 +50,26 @@ class RegistrationsTableVC: UITableViewController {
 
 // MARK: - UITableViewDataSource
 extension RegistrationsTableVC /*: UITableViewDataSource*/ {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return registrations.count
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // Maximum floor value for grouping by floors
+        return regByFloor.count
     }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return regByFloor[section].count
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Floor \(        regByFloor[section][0].roomType!.floor)"
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        // Declaring TableViewCell value
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegistrationCell", for: indexPath)
 
         // Get registration value from registrations array
-        let registration = registrations[indexPath.row]
+        let registration =         regByFloor[indexPath.section][indexPath.row]
 
         // Declaring service variables (Lint Best Practicles)
         let firstName = registration.firstName
@@ -54,6 +78,9 @@ extension RegistrationsTableVC /*: UITableViewDataSource*/ {
         let numbersOfChtldren = registration.numbersOfChtldren
         let roomNumber = String(describing: registration.roomType!.id)
         let roomName = String(describing: registration.roomType!.name)
+
+        // Head Text strinf
+        let headString = "\(roomNumber) - \(firstName) \(lastName)"
 
         // Declaring icons from SF Sybols library
         let adulsSFImage = NSTextAttachment()
@@ -76,7 +103,7 @@ extension RegistrationsTableVC /*: UITableViewDataSource*/ {
         }
 
         // Send date to cell labels
-        cell.textLabel?.text = "\(roomNumber) - \(firstName) \(lastName)"
+        cell.textLabel?.text = headString
         cell.detailTextLabel?.attributedText = detailString
 
         return cell
@@ -84,29 +111,6 @@ extension RegistrationsTableVC /*: UITableViewDataSource*/ {
 }
 
 // MARK: - Actions
-//extension RegistrationsTableVC {
-//    @IBAction func unwindFromAddEditRegistration(_ segue: UIStoryboardSegue) {
-//        print(#line, #function, segue.identifier)
-//        guard
-//            segue.identifier == "SaveRegistration",
-//            let source = segue.source as? AddEditRegistrationTableVC
-//        else { return }
-//
-//        let registrationCell = source.registration
-//        dump(registrationCell)
-//        if let selectedPath = tableView.indexPathForSelectedRow {
-//            // Edited Cell
-//            registrations[selectedPath.row] = registrationCell
-//            tableView.reloadRows(at: [selectedPath], with: .automatic)
-//        } else {
-//            // Add Cell
-//            let indexPath = IndexPath(row: registrations.count, section: 0)
-//            registrations.append(registrationCell)
-//            tableView.insertRows(at: [indexPath], with: .automatic)
-//        }
-//    }
-//}
-
 extension RegistrationsTableVC {
     @IBAction func unwind(_ segue: UIStoryboardSegue) {
 
@@ -120,12 +124,14 @@ extension RegistrationsTableVC {
         if let selectedPath = tableView.indexPathForSelectedRow {
             // Edited cell
             registrations[selectedPath.row] = registration
-            tableView.reloadRows(at: [selectedPath], with: .automatic)
+//            tableView.reloadRows(at: [selectedPath], with: .automatic)
         } else {
             // Added cell
-            let indexPath = IndexPath(row: registrations.count, section: 0)
+//            let indexPath = IndexPath(row: registrations.count, section: 0)
             registrations.append(registration)
-            tableView.insertRows(at: [indexPath], with: .automatic)
+//            tableView.insertRows(at: [indexPath], with: .automatic)
         }
+
+        tableView.reloadData()
     }
 }

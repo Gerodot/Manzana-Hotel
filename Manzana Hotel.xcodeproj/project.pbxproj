@@ -146,6 +146,8 @@
 			dependencies = (
 			);
 			name = "Manzana Hotel";
+			packageProductDependencies = (
+			);
 			productName = "Manzana Hotel";
 			productReference = 2D602EA12821BC7700A05D5B /* Manzana Hotel.app */;
 			productType = "com.apple.product-type.application";
@@ -174,6 +176,8 @@
 				Base,
 			);
 			mainGroup = 2D602E982821BC7700A05D5B;
+			packageReferences = (
+			);
 			productRefGroup = 2D602EA22821BC7700A05D5B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

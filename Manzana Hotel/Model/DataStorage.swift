@@ -17,20 +17,21 @@ class DataStorage {
     // MARK: - Methods
     // JSON file data loader
     func loadRegistraionsDB () -> [Registration]? {
-        guard let registrationsDBURL = registrationsDBURL else {return nil}
+        let decoder = JSONDecoder()
+
+        guard let registrationsDBURL = registrationsDBURL else { return nil }
         guard let encodedRegistraionsDB = try? Data(contentsOf: registrationsDBURL) else { return nil }
 
-        let decoder = JSONDecoder()
         return try? decoder.decode([Registration].self, from: encodedRegistraionsDB)
     }
 
     // Save data to JSON file
     func saveRegistraionsDB(_ registrations: [Registration]) {
-        guard let archiveURL = registrationsDBURL else {return}
-
         let encoder = JSONEncoder()
-        guard let encodedEmoji = try? encoder.encode(registrations) else {return}
 
-        try? encodedEmoji.write(to: archiveURL, options: .noFileProtection)
+        guard let registrationsDBURL = registrationsDBURL else { return }
+        guard let encodedRegistraionsDB = try? encoder.encode(registrations) else { return }
+//
+        try? encodedRegistraionsDB.write(to: registrationsDBURL, options: .noFileProtection)
     }
 }

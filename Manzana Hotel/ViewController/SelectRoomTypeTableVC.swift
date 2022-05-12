@@ -20,8 +20,9 @@ extension SelectRoomTypeTableVC /*: UITableViewDataSource*/ {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoomTypeCell", for: indexPath)
         let roomType = RoomType.all[indexPath.row]
         cell.accessoryType = roomType == self.roomType ? .checkmark : .none
-        cell.textLabel?.text = roomType.name
+        cell.textLabel?.text = "\(roomType.id) - \(roomType.name)"
         cell.detailTextLabel?.text = "$ \(roomType.price)"
+
         return cell
     }
 }
