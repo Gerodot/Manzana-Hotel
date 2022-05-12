@@ -121,15 +121,23 @@ extension RegistrationsTableVC {
 
         let registration = source.registration!
 
+//        if let selectedPath = tableView.indexPathForSelectedRow {
+//            // Edited cell
+//            registrations[selectedPath.row] = registration
+//            tableView.reloadRows(at: [selectedPath], with: .automatic)
+//        } else {
+//            // Added cell
+//            let indexPath = IndexPath(row: registrations.count, section: 0)
+//            registrations.append(registration)
+//            tableView.insertRows(at: [indexPath], with: .automatic)
+//        }
+
         if let selectedPath = tableView.indexPathForSelectedRow {
             // Edited cell
             registrations[selectedPath.row] = registration
-//            tableView.reloadRows(at: [selectedPath], with: .automatic)
         } else {
             // Added cell
-//            let indexPath = IndexPath(row: registrations.count, section: 0)
             registrations.append(registration)
-//            tableView.insertRows(at: [indexPath], with: .automatic)
         }
 
         tableView.reloadData()

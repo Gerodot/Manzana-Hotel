@@ -10,6 +10,7 @@ import UIKit
 class AddEditRegistrationTableVC: UITableViewController {
 
     // MARK: - Outlets
+    @IBOutlet var saveButton: UIBarButtonItem!
     @IBOutlet var firstNameTextField: UITextField!
     @IBOutlet var lastNameTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
@@ -24,7 +25,7 @@ class AddEditRegistrationTableVC: UITableViewController {
     @IBOutlet var wifiSwich: UISwitch!
     @IBOutlet var roomTypeLabel: UILabel!
     @IBOutlet var navigationTitile: UINavigationItem!
-
+    
     // MARK: - Props
     let chekInDateLabelIndexPath = IndexPath(row: 0, section: 1)
     let chekInDatePicherIndexPath = IndexPath(row: 1, section: 1)
@@ -55,6 +56,8 @@ class AddEditRegistrationTableVC: UITableViewController {
         updateNumberOfGuests()
         updateRoomType()
         editMode()
+        
+        saveButton.isEnabled = false
     }
 
     // MARK: - Navigation
@@ -71,7 +74,7 @@ class AddEditRegistrationTableVC: UITableViewController {
 
     }
     // MARK: - UI Methoods
-    func editMode() {
+    private func editMode() {
         if let registration = registration {
 
             let dateFormatter = DateFormatter()
@@ -94,6 +97,20 @@ class AddEditRegistrationTableVC: UITableViewController {
             roomType = registration.roomType // very important value !!!
             roomTypeLabel.text =  "\(registration.roomType!.id) - \(registration.roomType!.name)"
         }
+    }
+
+    private func formValidation() {
+        guard
+            let firstName = firstNameTextField.text, !firstName.isEmpty,
+            let lastName = lastNameTextField.text, !lastName.isEmpty,
+            let email = emailTextField.text, isValidEmailAddress(emailAddressString: email),
+            let roomType = roomType?.name, !roomType.isEmpty
+        else {
+            saveButton.isEnabled = false
+            return
+        }
+
+        saveButton.isEnabled = true
     }
 
     func saveRegistration() {
@@ -119,8 +136,31 @@ class AddEditRegistrationTableVC: UITableViewController {
             wifi: wifi
         )
     }
+    
+    private func isValidEmailAddress(emailAddressString: String) -> Bool {
+        
+        var returnValue = true
+        let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]"
+        
+        do {
+            let regex = try NSRegularExpression(pattern: emailRegEx)
+            let nsString = emailAddressString as NSString
+            let results = regex.matches(in: emailAddressString, range: NSRange(location: 0, length: nsString.length))
+            
+            if results.count == 0
+            {
+                returnValue = false
+            }
+            
+        } catch let error as NSError {
+            print("invalid regex: \(error.localizedDescription)")
+            returnValue = false
+        }
+        
+        return  returnValue
+    }
 
-    func updateDateView() {
+    private func updateDateView() {
         chekOutDatePicker.minimumDate = chekInDatePicker.date.addingTimeInterval(60 * 60 * 24)
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -129,7 +169,7 @@ class AddEditRegistrationTableVC: UITableViewController {
         chekOutDateLabel.text = dateFormatter.string(from: chekOutDatePicker.date)
     }
 
-    func updateNumberOfGuests() {
+    private func updateNumberOfGuests() {
         let numberOfAdults = Int(numberOfAdultsStepper.value)
         let numberOfChildren = Int(numberOfChildrenStepper.value)
         numberOfAdultsLabel.text = "\(numberOfAdults)"
@@ -151,6 +191,10 @@ class AddEditRegistrationTableVC: UITableViewController {
 
     @IBAction func stepperValueChanged (_ sender: UIStepper) {
         updateNumberOfGuests()
+    }
+
+    @IBAction func textFieldActive (_ sender: UITextField) {
+        formValidation()
     }
 }
 
@@ -191,5 +235,6 @@ extension AddEditRegistrationTableVC: SelectRoomTypeTableVCP {
     func didSelect(roomType: RoomType) {
         self.roomType = roomType
         updateRoomType()
+        formValidation()
     }
 }
