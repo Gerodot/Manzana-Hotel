@@ -14,6 +14,7 @@ class RegistrationsTableVC: UITableViewController {
     var roomType: RoomType?
     var registrations: [Registration]! {
         didSet {
+            registrations = registrations.sorted(by: { $0.roomType!.id < $1.roomType!.id })
             dataStorage.saveRegistraionsDB(registrations)
             sortByFloor()
         }
@@ -32,7 +33,6 @@ class RegistrationsTableVC: UITableViewController {
         // Sort arrays of registrations by floors
         regByFloor = Array(Dictionary(grouping: registrations) { $0.roomType!.floor }.values)
             .sorted(by: { $0[0].roomType!.floor < $1[0].roomType!.floor })
-
     }
 
     // MARK: - Navigatiom
@@ -43,7 +43,7 @@ class RegistrationsTableVC: UITableViewController {
             let description = segue.destination as? AddEditRegistrationTableVC
         else { return }
 
-        let registration = registrations[selectedPath.row]
+        let registration = regByFloor[selectedPath.section][selectedPath.row]
         description.registration = registration
     }
 }
@@ -60,7 +60,7 @@ extension RegistrationsTableVC /*: UITableViewDataSource*/ {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Floor \(        regByFloor[section][0].roomType!.floor)"
+        return "Floor \(regByFloor[section][0].roomType!.floor)"
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -69,7 +69,7 @@ extension RegistrationsTableVC /*: UITableViewDataSource*/ {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegistrationCell", for: indexPath)
 
         // Get registration value from registrations array
-        let registration =         regByFloor[indexPath.section][indexPath.row]
+        let registration = regByFloor[indexPath.section][indexPath.row]
 
         // Declaring service variables (Lint Best Practicles)
         let firstName = registration.firstName
@@ -134,10 +134,13 @@ extension RegistrationsTableVC {
 
         if let selectedPath = tableView.indexPathForSelectedRow {
             // Edited cell
-            registrations[selectedPath.row] = registration
+            regByFloor[selectedPath.section][selectedPath.row] = registration
+            registrations = Array(regByFloor.joined())
+            sortByFloor()
         } else {
             // Added cell
             registrations.append(registration)
+            sortByFloor()
         }
 
         tableView.reloadData()
