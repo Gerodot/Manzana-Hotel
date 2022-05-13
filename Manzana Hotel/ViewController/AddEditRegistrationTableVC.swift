@@ -74,6 +74,8 @@ class AddEditRegistrationTableVC: UITableViewController {
 
     }
     // MARK: - UI Methoods
+    
+    // Loading data into fields when editing data
     private func editMode() {
         if let registration = registration {
 
@@ -99,6 +101,7 @@ class AddEditRegistrationTableVC: UITableViewController {
         }
     }
 
+    // Validate forms and activate save button
     private func formValidation() {
         guard
             let firstName = firstNameTextField.text, !firstName.isEmpty,
@@ -113,6 +116,7 @@ class AddEditRegistrationTableVC: UITableViewController {
         saveButton.isEnabled = true
     }
 
+    // Writing data from an input form into a variable to send to the database
     func saveRegistration() {
         let firstName = firstNameTextField.text ?? ""
         let lastName = lastNameTextField.text ?? ""
@@ -137,6 +141,7 @@ class AddEditRegistrationTableVC: UITableViewController {
         )
     }
 
+    // Form Validator
     private func isValidEmailAddress(emailAddressString: String) -> Bool {
 
         var returnValue = true
@@ -158,6 +163,7 @@ class AddEditRegistrationTableVC: UITableViewController {
         return  returnValue
     }
 
+    // Updating the date display in the checkout and checkout labels
     private func updateDateView() {
         chekOutDatePicker.minimumDate = chekInDatePicker.date.addingTimeInterval(60 * 60 * 24)
         let dateFormatter = DateFormatter()
@@ -167,6 +173,7 @@ class AddEditRegistrationTableVC: UITableViewController {
         chekOutDateLabel.text = dateFormatter.string(from: chekOutDatePicker.date)
     }
 
+    // Updating the display of guest data in adult and child labels
     private func updateNumberOfGuests() {
         let numberOfAdults = Int(numberOfAdultsStepper.value)
         let numberOfChildren = Int(numberOfChildrenStepper.value)
@@ -174,6 +181,7 @@ class AddEditRegistrationTableVC: UITableViewController {
         numberOfChildrenLabel.text = "\(numberOfChildren)"
     }
 
+    // Updating the room information to be displayed on the label 
     func updateRoomType() {
         if let roomType = roomType {
             roomTypeLabel.text = "\(roomType.id) - \(roomType.name)"
