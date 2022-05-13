@@ -19,11 +19,6 @@ struct Registration: Codable {
     var wifi: Bool
 }
 
-struct Floor: Codable {
-    var id: Int
-    var registrationsOnFloor: [Registration]?
-}
-
 extension Registration {
     // Test data
     static var all: [Registration] {

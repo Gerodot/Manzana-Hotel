@@ -56,7 +56,7 @@ class RegistrationsTableVC: UITableViewController {
 
 // MARK: - UITableViewDataSource
 extension RegistrationsTableVC /*: UITableViewDataSource*/ {
-    
+
     // Definition of the maximum number of floors to be grouped by floor by section
     override func numberOfSections(in tableView: UITableView) -> Int {
         return regByFloorToDispaly.count

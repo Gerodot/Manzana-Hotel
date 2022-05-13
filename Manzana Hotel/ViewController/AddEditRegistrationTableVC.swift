@@ -74,7 +74,7 @@ class AddEditRegistrationTableVC: UITableViewController {
 
     }
     // MARK: - UI Methoods
-    
+
     // Loading data into fields when editing data
     private func editMode() {
         if let registration = registration {
@@ -141,7 +141,7 @@ class AddEditRegistrationTableVC: UITableViewController {
         )
     }
 
-    // Form Validator
+    // Email Validator
     private func isValidEmailAddress(emailAddressString: String) -> Bool {
 
         var returnValue = true

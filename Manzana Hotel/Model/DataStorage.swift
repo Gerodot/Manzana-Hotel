@@ -31,7 +31,7 @@ class DataStorage {
 
         guard let registrationsDBURL = registrationsDBURL else { return }
         guard let encodedRegistraionsDB = try? encoder.encode(registrations) else { return }
-//
+
         try? encodedRegistraionsDB.write(to: registrationsDBURL, options: .noFileProtection)
     }
 }
