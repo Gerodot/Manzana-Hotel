@@ -21,12 +21,12 @@ extension RoomType: Equatable {
 extension RoomType {
     static var all: [RoomType] {
         return [
-            RoomType(id: 101, name: "One Queens", shortName: "1Q", price: 129),
-            RoomType(id: 102, name: "One Queens", shortName: "1Q", price: 129),
-            RoomType(id: 103, name: "One Queens", shortName: "1Q", price: 129),
-            RoomType(id: 104, name: "One Queens", shortName: "1Q", price: 129),
-            RoomType(id: 105, name: "One Queens", shortName: "1Q", price: 129),
-            RoomType(id: 106, name: "One Queens", shortName: "1Q", price: 129),
+            RoomType(id: 101, name: "One Queen", shortName: "1Q", price: 129),
+            RoomType(id: 102, name: "One Queen", shortName: "1Q", price: 129),
+            RoomType(id: 103, name: "One Queen", shortName: "1Q", price: 129),
+            RoomType(id: 104, name: "One Queen", shortName: "1Q", price: 129),
+            RoomType(id: 105, name: "One Queen", shortName: "1Q", price: 129),
+            RoomType(id: 106, name: "One Queen", shortName: "1Q", price: 129),
 
             RoomType(id: 201, name: "Two Queens", shortName: "2Q", price: 179),
             RoomType(id: 202, name: "Two Queens", shortName: "2Q", price: 179),

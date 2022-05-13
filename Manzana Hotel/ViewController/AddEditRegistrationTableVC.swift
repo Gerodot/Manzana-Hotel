@@ -27,29 +27,30 @@ class AddEditRegistrationTableVC: UITableViewController {
     @IBOutlet var navigationTitile: UINavigationItem!
 
     // MARK: - Props
-    let chekInDateLabelIndexPath = IndexPath(row: 0, section: 1)
-    let chekInDatePicherIndexPath = IndexPath(row: 1, section: 1)
-    let chekOutDateLabelIndexPath = IndexPath(row: 2, section: 1)
-    let chekOutDatePicherIndexPath = IndexPath(row: 3, section: 1)
+    private let chekInDateLabelIndexPath = IndexPath(row: 0, section: 1)
+    private let chekInDatePicherIndexPath = IndexPath(row: 1, section: 1)
+    private let chekOutDateLabelIndexPath = IndexPath(row: 2, section: 1)
+    private let chekOutDatePicherIndexPath = IndexPath(row: 3, section: 1)
 
-    var isChekInDatePickerShown: Bool = false {
+    private var isChekInDatePickerShown: Bool = false {
         didSet {
             chekInDatePicker.isHidden = !isChekInDatePickerShown
         }
     }
-    var isChekOutDatePickerShown: Bool = false {
+    private var isChekOutDatePickerShown: Bool = false {
         didSet {
             chekOutDatePicker.isHidden = !isChekOutDatePickerShown
         }
     }
 
-    var roomType: RoomType?
+    private var roomType: RoomType?
+
+    private let midnightToday = Calendar.current.startOfDay(for: Date())
     var registration: Registration?
 
     // MARK: - UIViewController Methds
     override func viewDidLoad() {
         super.viewDidLoad()
-        let midnightToday = Calendar.current.startOfDay(for: Date())
         chekInDatePicker.minimumDate = midnightToday
         chekInDatePicker.date = midnightToday
         updateDateView()
@@ -88,7 +89,8 @@ class AddEditRegistrationTableVC: UITableViewController {
             lastNameTextField.text = registration.lastName
             emailTextField.text = registration.email
             chekInDateLabel.text = dateFormatter.string(from: registration.chekInDate)
-            chekInDatePicker.minimumDate = registration.chekInDate
+            chekInDatePicker.minimumDate = registration.chekInDate < midnightToday ?
+                registration.chekInDate : midnightToday
             chekOutDateLabel.text = dateFormatter.string(from: registration.chekOutDate)
             chekOutDatePicker.minimumDate = registration.chekInDate.addingTimeInterval(60 * 60 * 24)
             numberOfAdultsStepper.value = Double(registration.numberOfAdults)
@@ -97,7 +99,7 @@ class AddEditRegistrationTableVC: UITableViewController {
             numberOfChildrenLabel.text = String(registration.numbersOfChtldren)
             wifiSwich.isOn = registration.wifi
             roomType = registration.roomType // very important value !!!
-            roomTypeLabel.text =  "\(registration.roomType!.id) - \(registration.roomType!.name)"
+            roomTypeLabel.text = "\(registration.roomType!.id) - \(registration.roomType!.name)"
         }
     }
 
@@ -108,7 +110,7 @@ class AddEditRegistrationTableVC: UITableViewController {
             let lastName = lastNameTextField.text, !lastName.isEmpty,
             let email = emailTextField.text, isValidEmailAddress(emailAddressString: email),
             let roomType = roomType?.name, !roomType.isEmpty
-        else {
+            else {
             saveButton.isEnabled = false
             return
         }
@@ -160,7 +162,7 @@ class AddEditRegistrationTableVC: UITableViewController {
             returnValue = false
         }
 
-        return  returnValue
+        return returnValue
     }
 
     // Updating the date display in the checkout and checkout labels
@@ -181,7 +183,7 @@ class AddEditRegistrationTableVC: UITableViewController {
         numberOfChildrenLabel.text = "\(numberOfChildren)"
     }
 
-    // Updating the room information to be displayed on the label 
+    // Updating the room information to be displayed on the label
     func updateRoomType() {
         if let roomType = roomType {
             roomTypeLabel.text = "\(roomType.id) - \(roomType.name)"

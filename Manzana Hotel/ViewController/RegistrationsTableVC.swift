@@ -8,22 +8,24 @@
 import UIKit
 
 class RegistrationsTableVC: UITableViewController {
-// MARK: - Properties
 
-    let dataStorage = DataStorage()
-    var roomType: RoomType?
-    var registrations: [Registration]! {
+    // MARK: - Properties
+    private let dataStorage = DataStorage()
+    private var roomType: RoomType?
+    private var registrations: [Registration]! {
         didSet {
             // Sort registrations by room id
             registrations = registrations
                 .sorted(by: { $0.roomType!.id < $1.roomType!.id })
+
             // Save registrations to DataStorage
             dataStorage.saveRegistraionsDB(registrations)
+
             // Groupig registrations by floor to display on the user interface
             sortByFloor()
         }
     }
-    var regByFloorToDispaly: [[Registration]] = []
+    private var regByFloorToDispaly: [[Registration]] = []
 
     // MARK: - Methods
 
@@ -61,6 +63,7 @@ extension RegistrationsTableVC /*: UITableViewDataSource*/ {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return regByFloorToDispaly.count
     }
+
     // Determining the number of registrations per floor to display in the section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return regByFloorToDispaly[section].count
@@ -68,10 +71,10 @@ extension RegistrationsTableVC /*: UITableViewDataSource*/ {
 
     // Getting the section name
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Floor \(regByFloorToDispaly[section][0].roomType!.floor)"
+        return "Floor \(regByFloorToDispaly[section].first!.roomType!.floor)"
     }
 
-    // Forming cell contents
+    // Adding content to the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         // Declaring TableViewCell value
@@ -141,6 +144,7 @@ extension RegistrationsTableVC {
 //          tableView.insertRows(at: [indexPath], with: .automatic)
 //      }
 
+        // TODO: - Modify the function for a less resource-intensive insertion of cells. See code above.
         if let selectedPath = tableView.indexPathForSelectedRow {
             // Edited cell
             regByFloorToDispaly[selectedPath.section][selectedPath.row] = registration
