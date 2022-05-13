@@ -22,57 +22,100 @@ struct Registration: Codable {
 extension Registration {
     // Test data
     static var all: [Registration] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/mm/dd hh:mm"
+        let today = Calendar.current.startOfDay(for: Date())
+        let tomorrow = today.addingTimeInterval(60 * 60 * 24)
         return [
-            Registration(
-                firstName: "Jhon",
-                lastName: "Appleseed",
-                email: "jhon@appleseed.com",
-                chekInDate: dateFormatter.date(from: "2016/10/08 22:31")!,
-                chekOutDate: dateFormatter.date(from: "2016/11/28 22:31")!,
+             Registration(
+                firstName: "Arseniy",
+                lastName: "Petrov",
+                email: "petrovbars@ya.com",
+                chekInDate: today,
+                chekOutDate: tomorrow,
                 numberOfAdults: 1,
                 numbersOfChtldren: 0,
                 roomType: RoomType(
-                    id: 202,
-                    name: "Two Queens",
-                    shortName: "2Q",
-                    price: 179
-                ),
-                wifi: false
-            ),
-            Registration(
-                firstName: "Hoshimi",
-                lastName: "Nagate",
-                email: "hoshimi@nagate.jp",
-                chekInDate: dateFormatter.date(from: "2016/10/08 22:31")!,
-                chekOutDate: dateFormatter.date(from: "2016/11/28 22:31")!,
-                numberOfAdults: 1,
-                numbersOfChtldren: 0,
-                roomType: RoomType(
-                    id: 401,
-                    name: "Penthouse Suite",
-                    shortName: "PHS",
-                    price: 309
+                    id: 104,
+                    name: "One Queen",
+                    shortName: "1Q",
+                    price: 129
                 ),
                 wifi: true
-            ),
-            Registration(
-                firstName: "Vuasya",
-                lastName: "Pumpkin",
-                email: "vyasya@pumpkon.ru",
-                chekInDate: dateFormatter.date(from: "2016/10/08 22:31")!,
-                chekOutDate: dateFormatter.date(from: "2016/11/28 22:31")!,
+             ),
+             Registration(
+                firstName: "Valentine ",
+                lastName: "Petukhov",
+                email: "ads@wilsa.com",
+                chekInDate: today,
+                chekOutDate: tomorrow,
                 numberOfAdults: 2,
                 numbersOfChtldren: 2,
                 roomType: RoomType(
-                    id: 133,
+                    id: 203,
                     name: "Two Queens",
                     shortName: "2Q",
-                    price: 179
-                ),
+                    price: 179),
                 wifi: true
-            )
+             ),
+             Registration(
+                firstName: "Jhon",
+                lastName: "Appleseed",
+                email: "jhon@appleseed.com",
+                chekInDate: today,
+                chekOutDate: tomorrow,
+                numberOfAdults: 1,
+                numbersOfChtldren: 0,
+                roomType: RoomType(
+                    id: 204,
+                    name: "Two Queens",
+                    shortName: "2Q",
+                    price: 179),
+                wifi: true
+             ),
+             Registration(
+                firstName: "Vuasya",
+                lastName: "Pumpkin",
+                email: "vyasya@pumpkon.ru",
+                chekInDate: today,
+                chekOutDate: tomorrow,
+                numberOfAdults: 2,
+                numbersOfChtldren: 2,
+                roomType: RoomType(
+                    id: 205,
+                    name: "Two Queens",
+                    shortName: "2Q",
+                    price: 179),
+                wifi: false
+             ),
+             Registration(
+                firstName: "Takuya",
+                lastName: "Matsuyama",
+                email: "info@inkdrop.app",
+                chekInDate: today,
+                chekOutDate: tomorrow,
+                numberOfAdults: 1,
+                numbersOfChtldren: 0,
+                roomType: RoomType(
+                    id: 306,
+                    name: "One King",
+                    shortName: "K", price: 209
+                ),
+                wifi: true),
+             Registration(
+                firstName: "Pasha",
+                lastName: "Durov ",
+                email: "durov@telegram.com",
+                chekInDate: today,
+                chekOutDate: tomorrow,
+                numberOfAdults: 1,
+                numbersOfChtldren: 0,
+                roomType: RoomType(
+                    id: 402,
+                    name: "Penthouse Suite",
+                    shortName: "PHS",
+                    price: 309),
+                wifi: false
+             )
         ]
+
     }
 }
