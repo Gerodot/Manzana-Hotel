@@ -47,6 +47,7 @@ extension RoomType {
         ]
     }
 }
+
 extension RoomType {
     var floor: Int {
         return Int(String(String(id).first!))!
