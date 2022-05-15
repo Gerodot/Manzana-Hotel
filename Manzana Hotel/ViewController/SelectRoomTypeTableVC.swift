@@ -27,7 +27,7 @@ class SelectRoomTypeTableVC: UITableViewController {
             .map { $0.roomType! }
 
         // Filtering list of rooms that are free today
-        var emptyRooms = RoomType.all.filter({ !busyRmms.contains($0)})
+        var emptyRooms = RoomType.all.filter({ !busyRmms.contains($0) })
 
         // Adding an already-occupied room to the vacancy list
         if let roomType = roomType {
@@ -55,7 +55,7 @@ extension SelectRoomTypeTableVC /*: UITableViewDataSource*/ {
     }
 
     // Getting the section name
-        override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Floor \(String(emptyRoomsByFloor[section].first!.floor))"
     }
 
@@ -64,7 +64,7 @@ extension SelectRoomTypeTableVC /*: UITableViewDataSource*/ {
 
         // Declaring TableViewCell value
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoomTypeCell", for: indexPath)
-        
+
         // Get room value from rooms array
         let roomType = emptyRoomsByFloor[indexPath.section][indexPath.row]
 

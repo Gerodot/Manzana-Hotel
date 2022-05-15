@@ -33,13 +33,12 @@ class RegistrationsTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registrations = dataStorage.loadRegistraionsDB() ?? Registration.all
-        sortByFloor()
     }
 
     // Grouping an array of registrations by floors into subarrays
     func sortByFloor() {
         regByFloorToDispaly = Array(Dictionary(grouping: registrations) { $0.roomType!.floor }.values)
-            .sorted(by: { $0[0].roomType!.floor < $1[0].roomType!.floor })
+            .sorted(by: { $0.first!.roomType!.floor < $1.first!.roomType!.floor })
     }
 
     // MARK: - Navigatiom
@@ -149,13 +148,39 @@ extension RegistrationsTableVC {
             // Edited cell
             regByFloorToDispaly[selectedPath.section][selectedPath.row] = registration
             registrations = Array(regByFloorToDispaly.joined())
-            sortByFloor()
         } else {
             // Added cell
             registrations.append(registration)
-            sortByFloor()
         }
 
         tableView.reloadData()
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension RegistrationsTableVC /*UITableViewDelegate*/ {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) ->
+        UITableViewCell.EditingStyle {
+        return .delete
+    }
+
+    override func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+
+        switch editingStyle {
+        case .delete:
+            regByFloorToDispaly[indexPath.section].remove(at: indexPath.row)
+            registrations = Array(regByFloorToDispaly.joined())
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        case .insert:
+            break
+        case .none:
+            break
+        @unknown default:
+            print(#line, #function, "Unknown case in file \(#file)")
+        }
     }
 }
