@@ -18,8 +18,8 @@ class DataStorage {
     // JSON file data loader
     func loadRegistraionsDB () -> [Registration]? {
         let decoder = JSONDecoder()
-
         guard let registrationsDBURL = registrationsDBURL else { return nil }
+        print(registrationsDBURL)
         guard let encodedRegistraionsDB = try? Data(contentsOf: registrationsDBURL) else { return nil }
 
         return try? decoder.decode([Registration].self, from: encodedRegistraionsDB)

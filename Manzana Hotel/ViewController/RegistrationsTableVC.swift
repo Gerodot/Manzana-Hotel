@@ -44,10 +44,10 @@ class RegistrationsTableVC: UITableViewController {
     // MARK: - Navigatiom
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard
-            segue.identifier == "EditRegistration",
+        segue.identifier == "EditRegistration",
             let selectedPath = tableView.indexPathForSelectedRow,
             let description = segue.destination as? AddEditRegistrationTableVC
-        else { return }
+            else { return }
 
         // Preparing information and transferring to another VC
         let registration = regByFloorToDispaly[selectedPath.section][selectedPath.row]
@@ -126,9 +126,9 @@ extension RegistrationsTableVC {
     @IBAction func unwind(_ segue: UIStoryboardSegue) {
 
         guard
-            segue.identifier == "SaveRegistration",
+        segue.identifier == "SaveRegistration",
             let source = segue.source as? AddEditRegistrationTableVC
-        else { return }
+            else { return }
 
         let registration = source.registration!
 
@@ -160,7 +160,7 @@ extension RegistrationsTableVC {
 // MARK: - UITableViewDelegate
 extension RegistrationsTableVC /*UITableViewDelegate*/ {
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) ->
-        UITableViewCell.EditingStyle {
+    UITableViewCell.EditingStyle {
         return .delete
     }
 
@@ -171,10 +171,14 @@ extension RegistrationsTableVC /*UITableViewDelegate*/ {
     ) {
 
         switch editingStyle {
+//        case .delete:
+//            regByFloorToDispaly[indexPath.section].remove(at: indexPath.row)
+//            registrations = Array(regByFloorToDispaly.joined())
+//            tableView.deleteRows(at: [indexPath], with: .fade)
         case .delete:
-            regByFloorToDispaly[indexPath.section].remove(at: indexPath.row)
-            registrations = Array(regByFloorToDispaly.joined())
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            let selectedRegistrations = regByFloorToDispaly[indexPath.section].remove(at: indexPath.row)
+            registrations.removeAll(where: { $0.firstName == selectedRegistrations.firstName })
+            tableView.reloadData()
         case .insert:
             break
         case .none:
